@@ -1,4 +1,3 @@
-from email.mime import image
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
@@ -57,3 +56,7 @@ def upload(file: UploadFile = File(...)):
 @app.get("/images/{images}", response_class=FileResponse)
 async def get_images(images: str =""):
     return 'images/'+images
+
+if __name == "__main__":
+	port = int(os.environ.get('PORT', 5000))
+	run(app, host="0.0.0.0", port=port)
