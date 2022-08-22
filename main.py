@@ -1,3 +1,4 @@
+from email.mime import image
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
@@ -57,6 +58,10 @@ def upload(file: UploadFile = File(...)):
 async def get_images(images: str =""):
     return 'images/'+images
 
-# if __name == "__main__":
-# 	port = int(os.environ.get('PORT', 5000))
-# 	run(app, host="0.0.0.0", port=port)
+@app.post("/net/image/prediction/")
+def get_net_image_prediction(image_link: str = ""):
+    if image_link == "":
+        return {"message": "No image link provided"}
+
+    prediction = prediksi(image_link)
+    return prediction
